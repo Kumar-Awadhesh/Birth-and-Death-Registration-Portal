@@ -1,0 +1,13 @@
+{
+  "name": "birth-and-death-registration-portal",
+  "version": "1.0.0",
+  "description": "Birth and Death Registration Portal is backend server for Registering User's birth and death data.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
