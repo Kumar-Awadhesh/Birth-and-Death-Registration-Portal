@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const birthFormSchema = new mongoose.Schema({
     name: {type: String, required: true},
     gender: {type: String, required: true},
-    aadhaar_number: {type: Number},
+    aadhaar_number: {type: String},
     date_of_birth: {type: Date, required: true},
     dateOfBirth: {type: String, required: true},
     place_of_birth: {type: String, required: true},
@@ -18,6 +18,8 @@ const birthFormSchema = new mongoose.Schema({
     remarks: {type: String},
     date_of_issue: {type: Date, required:true},
     updated_on: {type: Date, required: true},
+    registration_unit_name: {type: String, required:true},
+    registration_unit_code: {type: Number, required:true},
     userId: {type: mongoose.Schema.Types.ObjectId, ref: "user"}
 },{
     versionKey: false,

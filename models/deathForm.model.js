@@ -18,6 +18,8 @@ const deathFormSchema = new mongoose.Schema({
     remarks: {type: String},
     date_of_issue: {type: Date},
     updated_on: {type: Date, required: true},
+    registration_unit_name: {type: String, required:true},
+    registration_unit_code: {type: Number, required:true},
     userId: {type: mongoose.Schema.Types.ObjectId, ref: "user"}
 },{
     versionKey: false,

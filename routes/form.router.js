@@ -59,26 +59,9 @@ FormRouter.post("/birthForm", async(req, res) => {
 
 FormRouter.get("/getBirthForm", async(req,res) => {
     try{
-        const token = req.headers?.authorization?.split(" ")[1];
-        if(!token) return res.status(401).json({msg:"please login!"})
-
-        const decoded = jwt.verify(token, "certificate");
-        if(!decoded) return req.status(401).json({msg:"invalid token!"});
-    
-        const userId = decoded.userid;
-
-        const existUser = await UserModel.findById(userId);
-        if(!existUser) return res.status(404).json({msg:"User not found!"});
-
-        if(existUser.role === "admin"){
-            const birthForm = await BirthFormModel.find().populate("user");
-            return res.status(200).json({msg:birthForm})
-        } 
-        else if(existUser.role === "user"){
-            const birthForm = await BirthFormModel.find({userId}).populate("user");
-            return res.status(200).json({msg:birthForm});
-        } 
-        else return res.status(401).json({msg:"You are not authorized!"});
+        
+        const birthForm = await BirthFormModel.find();
+        return res.status(200).json({msg:birthForm});
     }
     catch (err) {
         console.log("error in getting form", err);
@@ -136,26 +119,8 @@ FormRouter.post("/deathForm", async(req, res) => {
 
 FormRouter.get("/getDeathForm", async(req,res) => {
     try {
-        const token = req.headers?.authorization?.split(" ")[1];
-        if(!token) return res.status(401).json({msg:"please login!"})
-
-        const decoded = jwt.verify(token, "certificate");
-        if(!decoded) return req.status(401).json({msg:"invalid token!"});
-    
-        const userId = decoded.userid;
-
-        const existUser = await UserModel.findById(userId);
-        if(!existUser) return res.status(404).json({msg:"User not found!"});
-
-        if(existUser.role === "admin"){
-            const deathForm = await DeathFormModel.find().populate("user");
-            return res.status(200).json({msg:deathForm});
-        }
-        else if(existUser.role === "user"){
-            const deathForm = await DeathFormModel.find({userId}).populate("user");
-            return res.status(200).json({msg:deathForm});
-        }
-        else return res.status(401).json({msg:"You are not authorized!"});  
+        const deathForm = await DeathFormModel.find();
+        return res.status(200).json({msg:deathForm});
     } 
     catch (err) {
         console.log("error in getting form", err);
