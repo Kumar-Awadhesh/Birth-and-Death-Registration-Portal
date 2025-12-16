@@ -53,7 +53,7 @@ FormRouter.post("/birthForm", async(req, res) => {
     } 
     catch (err) {
         console.log("birth form error", err);
-        return res.status(401).json({msg:"failed to submit the birth form!"})
+        return res.status(401).json({msg:"failed to submit the birth form!", error: err})
     }
 })
 
@@ -113,7 +113,7 @@ FormRouter.post("/deathForm", async(req, res) => {
     } 
     catch (err) {
         console.log("death form error", err);
-        return res.status(401).json({msg:"failed to submit the death form!",err})
+        return res.status(401).json({msg:"failed to submit the death form!",error:err})
     }
 })
 
