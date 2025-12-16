@@ -20,7 +20,8 @@ FormRouter.post("/birthForm", async(req, res) => {
         const {name,gender,aadhaar_number,date_of_birth,dateOfBirth,place_of_birth,
             name_of_mother,name_of_father,mother_aadhaar_number,father_aadhaar_number,
             parent_address_at_birth,parent_permanent_address,registration_number,
-            date_of_registration,remarks,date_of_issue,updated_on
+            date_of_registration,remarks,date_of_issue,updated_on,registration_unit_name,
+            registration_unit_code
         } = req.body;
     
         const existUser = await UserModel.findById(userId);
@@ -44,7 +45,8 @@ FormRouter.post("/birthForm", async(req, res) => {
             const newBirthForm = new BirthFormModel({name,gender,aadhaar_number,date_of_birth,dateOfBirth,place_of_birth,
             name_of_mother,name_of_father,mother_aadhaar_number,father_aadhaar_number,
             parent_address_at_birth,parent_permanent_address,registration_number,
-            date_of_registration,remarks,date_of_issue,updated_on,userId:userId});
+            date_of_registration,remarks,date_of_issue,updated_on,registration_unit_name,
+            registration_unit_code,userId:userId});
     
             await newBirthForm.save();
             return res.status(200).json({msg:"Birth form submitted Successfully!"})
@@ -83,7 +85,7 @@ FormRouter.post("/deathForm", async(req, res) => {
             name_of_mother,name_of_father,mother_aadhaar_number,father_aadhaar_number,
             parent_address_at_death,parent_permanent_address,registration_number,
             date_of_registration,remarks,date_of_issue,updated_on,registration_unit_name,
-            registration_unit_code,
+            registration_unit_code
         } = req.body;
     
         const existUser = await UserModel.findById(userId);
