@@ -9,7 +9,7 @@ const LoginAuth = async(req, res, next) => {
      const existUser = await UserModel.findOne({email});
      if(!existUser) return res.status(404).json({msg:"user not found!"})
  
-     const result = bcrypt.compare(existUser.password, password);
+     const result = await bcrypt.compare(password, existUser.password);
      if(!result) return res.status(401).json({msg: "invalid password!"});
  
      req.token = jwt.sign({userid: existUser._id}, "certificate", {expiresIn: "1d"});
