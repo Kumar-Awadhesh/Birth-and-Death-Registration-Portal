@@ -28,16 +28,15 @@ FormRouter.post("/birthForm", async(req, res) => {
         if(!existUser) return res.status(404).json({msg:"User not found!"});
     
         if(existUser.role === "user" || existUser.role === "admin"){
-            if(aadhaar_number !== undefined){
-                console.log(aadhaar_number)
+            if(aadhaar_number !== undefined || aadhaar_number !== ""){
                 const isRegistered = await BirthFormModel.findOne({aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"aadhaar number already registered!", aadhaar_number})
             }
-            else if(mother_aadhaar_number !== undefined){
+            else if(mother_aadhaar_number !== undefined || mother_aadhaar_number !== ""){
                 const isRegistered = await BirthFormModel.findOne({mother_aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"mother aadhaar number already registered!", mother_aadhaar_number})
             }
-            else if(father_aadhaar_number !== undefined){
+            else if(father_aadhaar_number !== undefined || father_aadhaar_number !== ""){
                 const isRegistered = await BirthFormModel.findOne({father_aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"father aadhaar number already registered!", father_aadhaar_number})
             }
@@ -92,15 +91,15 @@ FormRouter.post("/deathForm", async(req, res) => {
         if(!existUser) return res.status(404).json({msg:"User not found!"});
     
         if(existUser.role === "user" || existUser.role === "admin"){
-            if(aadhaar_number !== undefined){
+            if(aadhaar_number !== undefined || aadhaar_number !== ""){
                 const isRegistered = await DeathFormModel.findOne({aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"aadhaar number already registered!", aadhaar_number})
             }
-            else if(mother_aadhaar_number !== undefined){
+            else if(mother_aadhaar_number !== undefined || mother_aadhaar_number !== ""){
                 const isRegistered = await DeathFormModel.findOne({mother_aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"mother aadhaar number already registered!", mother_aadhaar_number})
             }
-            else if(father_aadhaar_number !== undefined){
+            else if(father_aadhaar_number !== undefined || father_aadhaar_number !== ""){
                 const isRegistered = await DeathFormModel.findOne({father_aadhaar_number})
                 if(isRegistered) return res.status(200).json({msg:"father aadhaar number already registered!", father_aadhaar_number})
             }
