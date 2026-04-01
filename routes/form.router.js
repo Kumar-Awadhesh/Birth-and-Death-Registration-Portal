@@ -81,7 +81,7 @@ FormRouter.post("/deathForm", async(req, res) => {
         const userId = decoded.userid;
     
         const {name,gender,aadhaar_number,date_of_death,dateOfDeath,place_of_death,
-            name_of_mother,name_of_father,mother_aadhaar_number,father_aadhaar_number,
+            name_of_mother,name_of_husband,name_of_father,mother_aadhaar_number,father_aadhaar_number,
             parent_address_at_death,parent_permanent_address,registration_number,
             date_of_registration,remarks,date_of_issue,updated_on,registration_unit_name,
             registration_unit_code
@@ -105,7 +105,7 @@ FormRouter.post("/deathForm", async(req, res) => {
             }
             
             const newDeathForm = new DeathFormModel({name,gender,aadhaar_number,date_of_death,dateOfDeath,place_of_death,
-            name_of_mother,name_of_father,mother_aadhaar_number,father_aadhaar_number,
+            name_of_mother,name_of_husband,name_of_father,mother_aadhaar_number,father_aadhaar_number,
             parent_address_at_death,parent_permanent_address,registration_number,
             date_of_registration,remarks,date_of_issue,updated_on,registration_unit_name,registration_unit_code,userId:userId});
     
