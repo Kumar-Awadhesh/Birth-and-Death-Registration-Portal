@@ -8,6 +8,7 @@ const deathFormSchema = new mongoose.Schema({
     dateOfDeath: {type: String, required: true},
     place_of_death: {type: String, required: true},
     name_of_mother: {type: String, required: true},
+    name_of_husband: {type: String},
     name_of_father: {type: String, required: true},
     mother_aadhaar_number: {type: String},
     father_aadhaar_number: {type: String},
