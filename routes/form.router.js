@@ -125,8 +125,13 @@ FormRouter.post("/deathForm", async(req, res) => {
 
 FormRouter.get("/getDeathForm", async(req,res) => {
     try {
+        const page = Number(req.query.page || 1);
+        const perPage = Number(req.query.perPage || 10)
+
         const deathForm = await DeathFormModel.find();
-        return res.status(200).json({msg:deathForm});
+        const total = await DeathFormModel.countDocuments();
+        const totalPage = Math.ceil(total / perPage);
+        return res.status(200).json({msg:deathForm, totalPage:totalPage});
     } 
     catch (err) {
         console.log("error in getting form", err);
