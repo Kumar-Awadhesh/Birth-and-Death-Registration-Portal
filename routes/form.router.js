@@ -66,6 +66,9 @@ FormRouter.get("/getBirthForm", async(req,res) => {
         const birthForm = await BirthFormModel.find();
         const total = await BirthFormModel.countDocuments();
         const totalPage = Math.ceil(total / perPage)
+        const start = (page - 1) *  perPage;
+        const end = (start + perPage);
+        const sortedBirthForm = birthForm.slice(start, end);
         return res.status(200).json({msg:birthForm, totalPage:totalPage});
     }
     catch (err) {
@@ -131,7 +134,10 @@ FormRouter.get("/getDeathForm", async(req,res) => {
         const deathForm = await DeathFormModel.find();
         const total = await DeathFormModel.countDocuments();
         const totalPage = Math.ceil(total / perPage);
-        return res.status(200).json({msg:deathForm, totalPage:totalPage});
+        const start = (page - 1) *  perPage;
+        const end = (start + perPage);
+        const sortedDeathForm = deathForm.slice(start, end);
+        return res.status(200).json({msg:sortedDeathForm, totalPage:totalPage});
     } 
     catch (err) {
         console.log("error in getting form", err);
