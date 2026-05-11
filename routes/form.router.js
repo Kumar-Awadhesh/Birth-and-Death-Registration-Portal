@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const {UserModel} = require("../models/user.model");
 const {BirthFormModel} = require("../models/birthForm.model");
 const {DeathFormModel} = require("../models/deathForm.model");
+const { model } = require("mongoose");
 
 const FormRouter = express.Router();
 
@@ -60,16 +61,18 @@ FormRouter.post("/birthForm", async(req, res) => {
 
 FormRouter.get("/getBirthForm", async(req,res) => {
     try{
-        const page = Number(req.query.page || 1);
-        const perPage = Number(req.query.perPage || 10)
+        const page = Number(req.query.page);
+        const perPage = Number(req.query.perPage)
         
-        const birthForm = await BirthFormModel.find();
         const total = await BirthFormModel.countDocuments();
-        const totalPage = Math.ceil(total / perPage)
-        const start = (page - 1) *  perPage;
-        const end = (start + perPage);
-        const sortedBirthForm = birthForm.slice(start, end);
-        return res.status(200).json({msg:birthForm, totalPage:totalPage});
+       
+        if(page && perPage){
+            const totalPage = Math.ceil(total / perPage)
+            const birthForm = await BirthFormModel.find().skip((page - 1) * perPage).limit(perPage);
+            return res.status(200).json({msg:birthForm, totalPage: totalPage });
+        }
+        const birthForm = await BirthFormModel.find();
+        return res.status(200).json({msg:birthForm, totalPage:total});
     }
     catch (err) {
         console.log("error in getting form", err);
@@ -128,16 +131,17 @@ FormRouter.post("/deathForm", async(req, res) => {
 
 FormRouter.get("/getDeathForm", async(req,res) => {
     try {
-        const page = Number(req.query.page || 1);
-        const perPage = Number(req.query.perPage || 10)
+        const page = Number(req.query.page);
+        const perPage = Number(req.query.perPage)
 
-        const deathForm = await DeathFormModel.find();
         const total = await DeathFormModel.countDocuments();
-        const totalPage = Math.ceil(total / perPage);
-        const start = (page - 1) *  perPage;
-        const end = (start + perPage);
-        const sortedDeathForm = deathForm.slice(start, end);
-        return res.status(200).json({msg:sortedDeathForm, totalPage:totalPage});
+        if(page && perPage){
+            const totalPage = Math.ceil(total / perPage)
+            const deathForm = await DeathFormModel.find().skip((page - 1) * perPage).limit(perPage);
+            return res.status(200).json({msg:deathForm, totalPage: totalPage });
+        }
+        const deathForm = await DeathFormModel.find();
+        return res.status(200).json({msg:deathForm, totalPage:total});
     } 
     catch (err) {
         console.log("error in getting form", err);
